@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>سامانه مشاهده نتایج | دیپارتمنت بیولوژی</title>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap");
+:root{--ink:#17213d;--muted:#71809e;--line:#e5eaf3;--purple:#6542ed;--teal:#0e8079;--bg:#f7f9fd}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#f8faff,#f3f7fc);font-family:"Vazirmatn",Tahoma,"Segoe UI",Arial,sans-serif;color:var(--ink);min-height:100vh;letter-spacing:-.15px}
+.hero{position:relative;overflow:hidden;padding:10px 16px 12px;text-align:center;color:white;background:linear-gradient(115deg,#30276e 0%,#293b80 52%,#087b72 100%);border-radius:0 0 28px 28px;box-shadow:0 12px 36px #263c741f}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;background:#ffffff0d;pointer-events:none}.hero:before{width:260px;height:260px;top:-145px;left:-30px;border:1px solid #ffffff18}.hero:after{width:180px;height:180px;bottom:-145px;right:6%;border:1px solid #ffffff14}
+.pill{display:inline-block;padding:6px 14px;border:1px solid #ffffff36;border-radius:30px;background:#ffffff18;font-size:13px;font-weight:700}
+h1{font-family:"Vazirmatn",Tahoma,sans-serif;font-size:clamp(20px,2.5vw,29px);font-weight:800;letter-spacing:-.6px;margin:7px 0 5px;position:relative}.hero p{margin:0;color:#e2e7ff;font-size:13px;font-weight:500;line-height:1.6;position:relative}
+.top-search-btn{position:relative;margin:20px auto 0;padding:11px 22px;border:1px solid #ffffff55;border-radius:14px;background:#ffffff18;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;backdrop-filter:blur(8px);transition:.2s}.top-search-btn:hover{background:#ffffff2b;transform:translateY(-1px)}
+main{width:min(1100px,calc(100% - 30px));margin:10px auto 12px}.search-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 16px 50px #2d47700b}
+label{display:block;font-weight:700;font-size:14px;margin:0 0 12px}.searchline{display:flex;gap:12px}.searchline input{min-width:0;flex:1;padding:18px 20px;border:2px solid #e1e6ef;border-radius:17px;font-size:17px;font-family:inherit;font-weight:500;text-align:center;outline:none;transition:.2s}.searchline input:focus{border-color:#8770f6;box-shadow:0 0 0 4px #7658f31b}.searchline button{border:0;border-radius:16px;padding:0 28px;color:#fff;background:linear-gradient(110deg,#4d46ed,#8739ef);font-family:inherit;font-weight:800;font-size:16px;letter-spacing:-.2px;cursor:pointer;box-shadow:0 10px 22px #6748ed35}.searchline button:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.hint{text-align:center;color:var(--muted);font-size:12px;margin:15px 0 0}.message{display:none;margin-top:18px;padding:14px;border-radius:14px;text-align:center;background:#fff0f0;color:#b42332}
+.result{display:none;margin-top:8px;position:relative;overflow:hidden;border-radius:18px;background:linear-gradient(120deg,#ffffff 0%,#f1f7ff 65%,#eefbf6 100%);border:1px solid #e1e9f4;box-shadow:0 10px 28px #2c467014;padding:12px}
+.result:before{content:"";height:3px;position:absolute;top:0;left:8%;right:8%;background:linear-gradient(90deg,#69a7ff,#47d7b4)}
+.result-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}.result-top h2{font-size:20px;margin:0}.tag{border-radius:30px;background:#e7edff;color:#4c43b6;padding:9px 13px;font-size:12px;font-weight:700}
+.result-grid{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(180px,.75fr);gap:10px}.details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.field{background:#ffffffb8;border:1px solid #ffffffd9;border-radius:11px;padding:7px 10px;min-height:51px}.field small{display:block;color:var(--muted);font-size:10px;margin-bottom:3px}.field strong{font-size:13px;overflow-wrap:anywhere}.scorebox{border:1px solid #a9f0d2;border-radius:16px;background:linear-gradient(150deg,#edfff7,#f9fcff);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:10px;min-height:150px}.scorebox small{color:#68829a}.score{font-size:clamp(42px,5vw,62px);font-weight:900;letter-spacing:-2px;color:#07986e;line-height:1.1;margin:4px 0}.outof{color:#69829b;margin-bottom:18px}.status{display:inline-block;background:#d1fae5;color:#047857;border-radius:30px;padding:10px 18px;font-size:14px;font-weight:800}
+.foot{text-align:center;color:#94a3bc;font-size:10px;margin:8px 0 0;line-height:1.5}.privacy{font-size:12px;color:#7c8ba6;text-align:center;margin:18px 0 0}
+@media(max-width:700px){.hero{padding:18px 16px}.search-card{padding:18px}.searchline{flex-direction:column}.searchline button{padding:17px}.result{padding:14px}.result-grid{grid-template-columns:1fr}.scorebox{min-height:155px;grid-row:1}.details{grid-template-columns:1fr 1fr}.result-top{align-items:flex-start;flex-direction:column}}
+@media(max-width:420px){.details{grid-template-columns:1fr}.field{min-height:auto}.score{font-size:60px}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="pill">✦ سامانه مشاهده نتایج</div>
+  <h1>نتایج امتحان زولوژی فقاریه | کارنامه امتحان</h1>
+  <p>برای مشاهده نتیجه، شماره محصل (ID) خود را وارد کنید</p>
+  <button id="topSearchBtn" class="top-search-btn" type="button" style="display:none">⌕ جستجوی آی‌دی دیگر</button>
+</header>
+<main>
+  <section class="search-card" id="searchCard">
+    <label for="studentId">شماره محصل (ID)</label>
+    <div class="searchline">
+      <input id="studentId" inputmode="numeric" autocomplete="off" placeholder="آی‌دی خود را وارد نمایید" aria-label="شماره محصل">
+      <button id="searchBtn" type="button">مشاهده نتیجه ←</button>
+    </div>
+    <p class="hint">نتیجه فقط برای آی‌دی واردشده نمایش داده می‌شود.</p>
+    <div class="message" id="message" role="alert">نتیجه‌ای برای این شماره محصل پیدا نشد. آی‌دی را بررسی کنید.</div>
+  </section>
+  <section class="result" id="result" aria-live="polite">
+    <div class="result-top"><h2>جزئیات کارنامه</h2><span class="tag">نتیجه ثبت‌شده</span></div>
+    <div class="result-grid">
+      <div class="details" id="details"></div>
+      <div class="scorebox">
+        <small>نمره شما</small><div class="score" id="score"></div>
+        <div class="outof">از ۲۰ نمره</div>
+        <span class="status">✓ نمره ثبت‌شده</span>
+      </div>
+    </div>
+  </section>
+  <p class="privacy">لطفاً آی‌دی خود را دقیق وارد کنید. در صورت اشتباه بودن معلومات، به شماره تماس 0730030077 تماس بگیرید.</p>
+  <footer class="foot">سامانه اعلان نتایج • دیپارتمنت بیولوژی<br>طراحی واکنش‌گرا برای موبایل و کمپیوتر</footer>
+</main>
+<script>
+const students = [{"id": "5100223", "name": "بسم الله", "surname": "حاتمی", "father": "امیرمحمد", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 11.5}, {"id": "5100387", "name": "ربانی", "surname": "قاضی زاده", "father": "ثناءالرب", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 8}, {"id": "5100987", "name": "عبدالجلیل", "surname": "نورزی", "father": "احمد", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 0}, {"id": "5100312", "name": "عبدالعزیز", "surname": "عظیمی", "father": "عبدالحکیم", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 4}, {"id": "5100767", "name": "عبدالکبیر", "surname": "صدیقی", "father": "محمدصدیق", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 4}, {"id": "5100990", "name": "عصمت الله", "surname": "عصمت", "father": "عبدالکریم", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 4}, {"id": "5100884", "name": "لاجمیر", "surname": "غفوری", "father": "محمدعظیم", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 1}, {"id": "5100634", "name": "محب الله", "surname": "محب", "father": "نجیب الله", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 6}, {"id": "5100789", "name": "محمدسردار", "surname": "سرفراز", "father": "عبدالستار", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 6}, {"id": "5100448", "name": "نظام الدین", "surname": "حسینی", "father": "عبدالقادر", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 9.5}, {"id": "5100478", "name": "سردار", "surname": "ظاهری", "father": "ظاهر", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 3}, {"id": "5100113", "name": "شیراحمد", "surname": "یوسفی", "father": "نورمحمد", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 7}, {"id": "5100300", "name": "غلام سرور", "surname": "احمدی", "father": "غلام حیدر", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 16}, {"id": "5100883", "name": "محمدیاسین", "surname": "ابراهیمی", "father": "محمدیوسف", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 10.5}, {"id": "5100531", "name": "مسعود", "surname": "یوسفی", "father": "یارگل", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 16}, {"id": "5100180", "name": "نادر", "surname": "رحمتی", "father": "محمدرسول", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 3}, {"id": "5100875", "name": "نورآقا", "surname": "غفوری", "father": "بلال نیازی", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 11}, {"id": "5100266", "name": "جنت گل", "surname": "رحمانی", "father": "شاگل", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 8.5}, {"id": "5100732", "name": "سمیع الله", "surname": "بهزاد", "father": "غلام یحی", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 3}, {"id": "5100393", "name": "عبدالظاهر", "surname": "عظیمی", "father": "عبدالحکیم", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 0}, {"id": "5100555", "name": "عبدالقدیر", "surname": "عزیزی", "father": "سخی مراد", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 5}, {"id": "5100301", "name": "فقیراحمد", "surname": "عظیمی", "father": "اعطامحمد", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 7}, {"id": "5100864", "name": "ذبیح الله", "surname": "حبیبی", "father": "رحیم الله", "semester": "پنجم", "subject": "زولوژی فقاریه", "department": "بیولوژی", "examType": "بیست فیصد", "score": 6}];
+const $ = id => document.getElementById(id);
+function showResult(){
+  const id = $('studentId').value.trim().replace(/\s/g,'');
+  const student = students.find(s => String(s.id).trim() === id);
+  $('message').style.display = 'none';
+  $('result').style.display = 'none';
+  if(!id){$('message').textContent='لطفاً شماره محصل (ID) را وارد کنید.';$('message').style.display='block';return;}
+  if(!student){$('message').textContent='نتیجه‌ای برای این شماره محصل پیدا نشد. آی‌دی را بررسی کنید.';$('message').style.display='block';return;}
+  const fields=[
+    ['اسم',student.name],['تخلص',student.surname],['ولد',student.father],
+    ['شماره محصل (ID)',student.id],['سمستر',student.semester],
+    ['دیپارتمنت',student.department],['مضمون',student.subject],['نوعیت امتحان',student.examType]
+  ];
+  $('details').innerHTML = fields.map(([label,value])=>`<div class="field"><small>${escapeHtml(label)}</small><strong>${escapeHtml(value || '—')}</strong></div>`).join('');
+  $('score').textContent = Number(student.score).toLocaleString('en-US',{maximumFractionDigits:2});
+  $('result').style.display='block';
+  $('searchCard').style.display='none';
+  $('topSearchBtn').style.display='inline-block';
+  window.scrollTo(0,0);
+}
+function escapeHtml(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+$('searchBtn').addEventListener('click',showResult);
+$('studentId').addEventListener('keydown',e=>{if(e.key==='Enter')showResult()});
+$('topSearchBtn').addEventListener('click',()=>{
+  $('result').style.display='none';
+  $('message').style.display='none';
+  $('searchCard').style.display='block';
+  $('topSearchBtn').style.display='none';
+  $('studentId').value='';
+  window.scrollTo(0,0);
+  setTimeout(()=>$('studentId').focus(),350);
+});
+</script>
+</body>
+</html>
